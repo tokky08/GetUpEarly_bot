@@ -30,13 +30,6 @@ def main():
     line_bot_api.push_message(user_id, messages=messages)
 
 
-schedule.every(1).minutes.do(main)
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
-
-
 @app.route("/")
 def hello_world():
     return "hello world!"
@@ -63,6 +56,14 @@ def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
+
+
+schedule.every(1).minutes.do(main)
+
+while True:
+    print("デバッグ")
+    schedule.run_pending()
+    time.sleep(1)
 
 if __name__ == "__main__":
 #    app.run()
