@@ -16,9 +16,15 @@ app = Flask(__name__)
 #環境変数取得
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
 YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
+YOUR_USER_ID = os.environ["YOUR_USER_ID"]
 
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
+
+def main():
+    user_id = YOUR_USER_ID
+    messages = TextSendMessage(text=f"こんにちは😁")
+    line_bot_api.push_message(user_id, messages=messages)
 
 @app.route("/")
 def hello_world():
@@ -49,5 +55,6 @@ def handle_message(event):
 
 if __name__ == "__main__":
 #    app.run()
+    main()
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
