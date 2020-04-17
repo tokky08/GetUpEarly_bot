@@ -30,11 +30,16 @@ def lineMessagingAPI(message):
     url = url + message
     result = requests.get(url)
 
-schedule.every(1).minutes.do(lineMessagingAPI("テストだよ！"))
-
 while True:
-    schedule.run_pending()
-    time.sleep(1)
+    print("test")
+    lineMessagingAPI("テストだよ！")
+    time.sleep(5)
+
+# schedule.every(1).minutes.do(lineMessagingAPI("テストだよ！"))
+
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)
 
 
 
