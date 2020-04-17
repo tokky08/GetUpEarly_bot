@@ -30,7 +30,11 @@ def lineMessagingAPI(message):
     url = url + message
     result = requests.get(url)
 
-lineMessagingAPI("テストだよ！")
+schedule.every(1).minutes.do(lineMessagingAPI("テストだよ！"))
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
 
 
 
@@ -61,13 +65,6 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=event.message.text))
 
-
-# schedule.every(1).minutes.do(main)
-
-# while True:
-#     print("デバッグ")
-#     schedule.run_pending()
-#     time.sleep(1)
 
 if __name__ == "__main__":
 #    app.run()
