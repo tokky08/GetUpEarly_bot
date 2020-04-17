@@ -3,6 +3,7 @@ import os
 import datetime
 import schedule
 import time
+import requests
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -24,10 +25,13 @@ YOUR_USER_ID = os.environ["YOUR_USER_ID"]
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
-def main():
-    user_id = YOUR_USER_ID
-    messages = TextSendMessage(text=f"こんにちは😁")
-    line_bot_api.push_message(user_id, messages=messages)
+def lineMessagingAPI(message):
+    url = "https://script.google.com/macros/s/AKfycbyCzbcd4kTZk7PxLh-JkTJQTlXuUkY40FhWE5TXFOXQzYMTO3_f/exec?message="
+    url = url + message
+    result = requests.get(url)
+
+lineMessagingAPI("テストだよ！")
+
 
 
 @app.route("/")
@@ -58,15 +62,14 @@ def handle_message(event):
         TextSendMessage(text=event.message.text))
 
 
-schedule.every(1).minutes.do(main)
+# schedule.every(1).minutes.do(main)
 
-while True:
-    print("デバッグ")
-    schedule.run_pending()
-    time.sleep(1)
+# while True:
+#     print("デバッグ")
+#     schedule.run_pending()
+#     time.sleep(1)
 
 if __name__ == "__main__":
 #    app.run()
-    main()
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
