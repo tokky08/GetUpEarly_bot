@@ -33,7 +33,7 @@ def lineMessagingAPI(message):
 while True:
     print("test")
     lineMessagingAPI("テストだよ！")
-    time.sleep(5)
+    time.sleep(1)
 
 # schedule.every(1).minutes.do(lineMessagingAPI("テストだよ！"))
 
