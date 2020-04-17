@@ -15,15 +15,15 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-#環境変数取得
-YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
-YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
-YOUR_USER_ID = os.environ["YOUR_USER_ID"]
+# #環境変数取得
+# YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
+# YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
+# YOUR_USER_ID = os.environ["YOUR_USER_ID"]
 
-line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(YOUR_CHANNEL_SECRET)
+# line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
+# handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 def lineMessagingAPI(message):
     url = "https://script.google.com/macros/s/AKfycbyCzbcd4kTZk7PxLh-JkTJQTlXuUkY40FhWE5TXFOXQzYMTO3_f/exec?message="
@@ -72,6 +72,5 @@ while True:
 
 
 # if __name__ == "__main__":
-# #    app.run()
 #     port = int(os.getenv("PORT"))
 #     app.run(host="0.0.0.0", port=port)
