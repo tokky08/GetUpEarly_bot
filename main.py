@@ -5,15 +5,15 @@ import schedule
 import time
 import requests
 
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
-from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
-)
+# from linebot import (
+#     LineBotApi, WebhookHandler
+# )
+# from linebot.exceptions import (
+#     InvalidSignatureError
+# )
+# from linebot.models import (
+#     MessageEvent, TextMessage, TextSendMessage,
+# )
 
 # app = Flask(__name__)
 
@@ -30,11 +30,18 @@ def lineMessagingAPI(message):
     url = url + message
     result = requests.get(url)
 
+lineMessagingAPI("7時だよ！起きろ！8時までに返信がなければみんなに通知しますね！")
 
-now = datetime.datetime.now()
 
-if now.hour == 7 or now.hour-1 == 6:
-    lineMessagingAPI("7時だよ！起きろ！8時までに返信がなければみんなに通知しますね！")
+# now = datetime.datetime.now()
+
+# print("テスト")
+
+# if now.hour == 7 or now.hour-1 == 6:
+#     lineMessagingAPI("7時だよ！起きろ！8時までに返信がなければみんなに通知しますね！")
+
+
+
 
 
 
