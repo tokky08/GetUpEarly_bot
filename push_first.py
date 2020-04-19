@@ -16,27 +16,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 
 
-#####  7時にpush通知する処理  ########
-
-def lineMessagingAPI(message):
-    url = "https://script.google.com/macros/s/AKfycbyCzbcd4kTZk7PxLh-JkTJQTlXuUkY40FhWE5TXFOXQzYMTO3_f/exec?message="
-    url = url + message
-    result = requests.get(url)
-
-now = datetime.datetime.now()
-
-if now.hour == 7:
-    lineMessagingAPI("7時だよ！起きろ！8時までに返信がなければみんなに通知しますね！")
-else:
-    return
-
-# 1時間5分待つ
-hour = 60*65
-time.sleep(hour)
-
-#####  8時に起きてない人達のための処理  #########
-
-if now.hour == 8:
+def worksheet(spredsheet_key):
 
     #2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
@@ -49,49 +29,84 @@ if now.hour == 8:
     gc = gspread.authorize(credentials)
 
     #共有設定したスプレッドシートキーを変数[SPREADSHEET_KEY]に格納する。
-    SPREADSHEET_KEY = '10YxvUHRG9drcnAoyBxkls4vDN1mI9TSZq6XnJGy8aUk'
+    SPREADSHEET_KEY = spredsheet_key
 
     #共有設定したスプレッドシートのシート1を開く
     worksheet = gc.open_by_key(SPREADSHEET_KEY).sheet1
 
+    return worksheet
+
+
+#起きれた人のスプレッドシートを一度全消去する
+spredsheet_key_got_up = '1uqKc2v-hgOD7QMNdqjgF3NhLc3e3mlY8V2C15brBoUQ'
+worksheet_got_up = worksheet(spredsheet_key_got_up)
+worksheet_got_up.clear()
+
+
+#起きれてない人のスプレッドシートを一度全消去する
+spredsheet_key_not_got_up = '10YxvUHRG9drcnAoyBxkls4vDN1mI9TSZq6XnJGy8aUk'
+worksheet_not_got_up = worksheet(spredsheet_key_not_got_up)
+worksheet_not_got_up.clear()
+
+
+def lineMessagingAPI(message):
+    url = "https://script.google.com/macros/s/AKfycbyCzbcd4kTZk7PxLh-JkTJQTlXuUkY40FhWE5TXFOXQzYMTO3_f/exec?message="
+    url = url + message
+    result = requests.get(url)
+
+
+#####  7時にpush通知する処理  ########
+
+now = datetime.datetime.now()
+if now.hour == 7:
+    lineMessagingAPI("7時だよ！起きろ！8時までに返信がなければみんなに通知しますね！")
+else:
+    return
+
+# 1時間5分待つ
+hour = 60*65
+time.sleep(hour)
+
+#####  8時に起きてない人達のための処理  #########
+
+now = datetime.datetime.now()
+if now.hour == 8:
+
+    spredsheet_key_not_got_up = '10YxvUHRG9drcnAoyBxkls4vDN1mI9TSZq6XnJGy8aUk'
+    worksheet_not_got_up = worksheet(spredsheet_key_not_got_up)
+
     #列の値を全て一次元配列に格納する（起きてない人のlist）
     not_got_up_list = worksheet.col_values(1)
 
+    if not not_got_up_list:
+        lineMessagingAPI("みんなよく起きれました！えらい！")
+        return
 
+    else:
 
-    user_id_list = []
-    for user_id in not_got_up_list:
-        user_id_list.append(user_id)
-        
+        user_id_list = []
+        for user_id in not_got_up_list:
+            user_id_list.append(user_id)
+            
+        YOUR_CHANNEL_ACCESS_TOKEN = os.environ['YOUR_CHANNEL_ACCESS_TOKEN']
+        line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 
-    YOUR_CHANNEL_ACCESS_TOKEN = os.environ['YOUR_CHANNEL_ACCESS_TOKEN']
-    line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
+        profile_list = []
+        for user_id in user_id_list:
+            profile = line_bot_api.get_profile(user_id)
+            profile_list.append(profile)
 
-    profile_list = []
-    for user_id in user_id_list:
-        profile = line_bot_api.get_profile(user_id)
-        profile_list.append(profile)
+        name_list = []
+        for profile in profile_list:
+            name = profile.display_name
+            name_list.append(name)
 
-    name_list = []
-    for profile in profile_list:
-        name = profile.display_name
-        name_list.append(name)
-
-
-    message = ''
-    for name in name_list:
-        message += name + ", "
-        
-    message = message + "さんは起きてません！起こしてあげて〜！"
-
-
-
-    def lineMessagingAPI(message):
-        url = "https://script.google.com/macros/s/AKfycbyCzbcd4kTZk7PxLh-JkTJQTlXuUkY40FhWE5TXFOXQzYMTO3_f/exec?message="
-        url = url + message
-        result = requests.get(url)
-
-    lineMessagingAPI(message)
+        message = ''
+        for name in name_list:
+            message += name + ", "
+            
+        message = message + "さんは起きてません！起こしてあげて〜！"
+        lineMessagingAPI(message)
 
 else:
     return
