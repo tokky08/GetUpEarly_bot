@@ -8,6 +8,7 @@
  - LINE Messageing API
  - Python
  - Googleスプレッドシート
+ - Heroku
  
  # 使用方法
  
