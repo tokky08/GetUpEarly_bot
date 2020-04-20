@@ -73,7 +73,7 @@ def lineMessagingAPI(message):
 
 now = datetime.datetime.now()
 if now.hour == 7:
-    lineMessagingAPI("7時だよ！起きろ！8時までに返信がなければみんなに通知しますね！")
+    lineMessagingAPI("起きろにゃん！！！8時までに返信がなければみんなに通知するにゃん😼")
 else:
     sys.exit()
 
@@ -93,7 +93,7 @@ if now.hour == 8:
     not_got_up_list = worksheet.col_values(1)
 
     if not not_got_up_list:
-        lineMessagingAPI("みんなよく起きれました！えらい！")
+        lineMessagingAPI("みんなよく起きれました！えらいにゃん！今日も一日頑張ってにゃんにゃん😸")
         sys.exit()
 
     else:
@@ -119,7 +119,7 @@ if now.hour == 8:
         for name in name_list:
             message += name + ", "
             
-        message = message + "さんは起きてません！起こしてあげて〜！"
+        message = message + "さんは起きてません！起こしてあげてにゃん！😾"
         lineMessagingAPI(message)
 
 else:
