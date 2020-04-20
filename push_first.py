@@ -1,5 +1,6 @@
 from flask import Flask, request, abort
 import os
+import sys
 import datetime
 import schedule
 import time
@@ -9,7 +10,6 @@ import json
 import setting
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage,
 
 #ServiceAccountCredentials：Googleの各サービスへアクセスできるservice変数を生成します。
 from oauth2client.service_account import ServiceAccountCredentials 
@@ -61,7 +61,7 @@ now = datetime.datetime.now()
 if now.hour == 7:
     lineMessagingAPI("7時だよ！起きろ！8時までに返信がなければみんなに通知しますね！")
 else:
-    return
+    sys.exit()
 
 # 1時間5分待つ
 hour = 60*65
@@ -80,7 +80,7 @@ if now.hour == 8:
 
     if not not_got_up_list:
         lineMessagingAPI("みんなよく起きれました！えらい！")
-        return
+        sys.exit()
 
     else:
 
@@ -109,5 +109,5 @@ if now.hour == 8:
         lineMessagingAPI(message)
 
 else:
-    return
+    sys.exit()
 
