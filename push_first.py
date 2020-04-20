@@ -15,13 +15,12 @@ from linebot.exceptions import InvalidSignatureError
 from oauth2client.service_account import ServiceAccountCredentials 
 
 
-
 def worksheet(spredsheet_key):
 
     #2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
-    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
-    # 辞書オブジェクト。認証に必要な情報をHerokuの環境変数から呼び出している
+    #辞書オブジェクト。認証に必要な情報をHerokuの環境変数から呼び出している
     credential = {
         "type": "service_account",
         "project_id": os.environ['SHEET_PROJECT_ID'],
@@ -32,8 +31,9 @@ def worksheet(spredsheet_key):
         "auth_uri": "https://accounts.google.com/o/oauth2/auth",
         "token_uri": "https://oauth2.googleapis.com/token",
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_x509_cert_url":  os.environ['SHEET_CLIENT_X509_CERT_URL']
+        "client_x509_cert_url": os.environ['SHEET_CLIENT_X509_CERT_URL']
     }
+    
 
     #認証情報設定
     #ダウンロードしたjsonファイル名をクレデンシャル変数に設定（秘密鍵、Pythonファイルから読み込みしやすい位置に置く）
@@ -76,7 +76,6 @@ now = datetime.datetime.now()
 if now.hour == 7:
     lineMessagingAPI("7時だよ！起きろ！8時までに返信がなければみんなに通知しますね！")
 else:
-    print("テスト")
     sys.exit()
 
 # 1時間5分待つ
