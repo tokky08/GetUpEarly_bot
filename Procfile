@@ -1,1 +1,1 @@
-web: python main.py
+web: python push_first.py
