@@ -23,7 +23,7 @@ def worksheet(spredsheet_key):
 
     # 辞書オブジェクト。認証に必要な情報をHerokuの環境変数から呼び出している
     credential = {
-        "type": "service_account",
+        "type": "SERVICE_ACCOUNT",
         "project_id": os.environ['SHEET_PROJECT_ID'],
         "private_key_id": os.environ['SHEET_PRIVATE_KEY_ID'],
         "private_key": os.environ['SHEET_PRIVATE_KEY'],
