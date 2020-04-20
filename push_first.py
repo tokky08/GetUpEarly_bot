@@ -75,6 +75,7 @@ now = datetime.datetime.now()
 if now.hour == 7:
     lineMessagingAPI("7時だよ！起きろ！8時までに返信がなければみんなに通知しますね！")
 else:
+    print("テスト")
     sys.exit()
 
 # 1時間5分待つ
