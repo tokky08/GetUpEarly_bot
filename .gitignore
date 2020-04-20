@@ -1,4 +1,3 @@
 *.json
 .env
-setting.py
 __pycache__
