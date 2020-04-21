@@ -2,7 +2,7 @@ import setting
 import function
 
 
-#####  7時のpush通知  #####
+##### 7時のpush通知 #####
 
 #起きれた人のスプレッドシートを一度全消去する
 spredsheet_key_got_up = '1uqKc2v-hgOD7QMNdqjgF3NhLc3e3mlY8V2C15brBoUQ'
