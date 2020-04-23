@@ -9,7 +9,7 @@ import datetime
 
 now = datetime.datetime.now()
 
-if now.hour == 8:
+if now.hour == 23:
 
     spredsheet_key_not_got_up = '10YxvUHRG9drcnAoyBxkls4vDN1mI9TSZq6XnJGy8aUk'
     worksheet_not_got_up = function.worksheet(spredsheet_key_not_got_up)
