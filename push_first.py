@@ -16,5 +16,5 @@ worksheet_not_got_up = function.worksheet(spredsheet_key_not_got_up)
 worksheet_not_got_up.clear()
 
 
-function.lineMessagingAPI("起きろにゃん！！！8時までに返信がなければみんなに通知するにゃん😼")
+function.lineMessagingAPI("起きろにゃん！！！7時45分までに返信がなければみんなに通知するにゃん😼")
 

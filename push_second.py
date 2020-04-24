@@ -8,8 +8,10 @@ import datetime
 
 
 now = datetime.datetime.now()
+minute = [i for i in range(10)]
 
-if now.hour == 23:
+
+if now.hour == 23 and now.minute in minute:
 
     spredsheet_key_not_got_up = '10YxvUHRG9drcnAoyBxkls4vDN1mI9TSZq6XnJGy8aUk'
     worksheet_not_got_up = function.worksheet(spredsheet_key_not_got_up)
@@ -24,5 +26,4 @@ if now.hour == 23:
         message = function.message(not_got_up_list)
         function.lineMessagingAPI(message)
 
-else:
-    function.lineMessagingAPI("誤動作だにゃ")
+
