@@ -7,7 +7,7 @@
 # 開発ツール
 
  - GAS
- - LINE Messageing API
+ - LINE Messaging API
  - Python
  - Googleスプレッドシート
  - Heroku
